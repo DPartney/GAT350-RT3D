@@ -8,12 +8,6 @@ namespace nc
     bool World03::Initialize()
     {
         m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
-        //m_program = GET_RESOURCE(Program, "shaders/unlit_texture.prog");
-        //m_program->Use();
-
-        //m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
-        //m_texture->Bind();
-        //m_texture->SetActive(GL_TEXTURE0);
 
         // veretex data
         float vertexData[] = {
@@ -23,7 +17,7 @@ namespace nc
              0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
         };
 
-        m_vertexBuffer = GET_RESOURCE(VertexBuffer, "vb");
+        m_vertexBuffer = std::make_shared<VertexBuffer>();
         m_vertexBuffer->CreateVertexBuffer(sizeof(vertexData), 4, vertexData);
         m_vertexBuffer->SetAttribute(0, 3, 8 * sizeof(GLfloat), 0);                  // position 
         m_vertexBuffer->SetAttribute(1, 3, 8 * sizeof(GLfloat), 3 * sizeof(float));  // color 
@@ -79,8 +73,6 @@ namespace nc
 
         // render
         m_vertexBuffer->Draw(GL_TRIANGLE_STRIP);
-        ENGINE.GetSystem<Gui>()->Draw();
-
         ENGINE.GetSystem<Gui>()->Draw();
 
         // post-render

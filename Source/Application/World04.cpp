@@ -10,7 +10,7 @@ namespace nc
         auto material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("models/cube.obj");
+        m_model->Load("models/buddha.obj");
 
         return true;
     }
@@ -60,7 +60,7 @@ namespace nc
         renderer.BeginFrame();
 
         // render
-        m_model->Draw(GL_TRIANGLES);
+        m_model->Draw();
         ENGINE.GetSystem<Gui>()->Draw();
 
         // post-render

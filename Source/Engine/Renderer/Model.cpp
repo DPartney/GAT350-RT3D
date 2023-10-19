@@ -31,10 +31,10 @@ namespace nc
 		return true;
 	}
 
-	void Model::Draw(GLenum primitive)
+	void Model::Draw()
 	{
 		m_material->Bind();
-		m_vertexBuffer->Draw(primitive);
+		m_vertexBuffer->Draw(GL_TRIANGLES);
 	}
 
 	void Model::ProcessNode(aiNode* node, const aiScene* scene)

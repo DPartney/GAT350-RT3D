@@ -24,7 +24,7 @@ namespace nc
 	public:
 		bool Create(std::string filename, ...) override;
 		bool Load(const std::string& filename);
-		void Draw(GLenum GL_TRIANGLE);
+		void Draw();
 
 		void SetMaterial(res_t<Material> material) { m_material = material; }
 		res_t<Material> GetMaterial() { return m_material; }

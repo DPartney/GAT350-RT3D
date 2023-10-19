@@ -10,7 +10,7 @@ namespace nc
         auto material = GET_RESOURCE(Material, "materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("models/buddha.obj");
+        m_model->Load("models/buddha.obj", glm::vec3{ 0 }, glm::vec3{-90, 0, 0});
 
         return true;
     }
@@ -27,6 +27,12 @@ namespace nc
         ImGui::DragFloat3("Position", &m_transform.position[0]);
         ImGui::DragFloat3("Rotation", &m_transform.rotation[0]);
         ImGui::DragFloat3("Scale", &m_transform.scale[0]);
+        ImGui::End();
+
+        ImGui::Begin("Light"); 
+        ImGui::DragFloat3("Position", glm::value_ptr(m_lightPosition));
+        ImGui::ColorEdit3("Color", glm::value_ptr(m_lightColor));
+        ImGui::ColorEdit3("Ambient Color", glm::value_ptr(m_ambientColor));
         ImGui::End();
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * -dt : 0;
@@ -48,7 +54,7 @@ namespace nc
         material->GetProgram()->SetUniform("view", view);
 
         // projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(70.0f), (float)ENGINE.Instance().GetSystem<Renderer>()->GetWidth() / ENGINE.Instance().GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
         material->GetProgram()->SetUniform("projection", projection);
 
         ENGINE.GetSystem<Gui>()->EndFrame();

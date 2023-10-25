@@ -8,6 +8,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{330186ff-4a92-4e1e-95cc-9a1d3fbf79a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Unlit">
+      <UniqueIdentifier>{926b34b2-ace1-43e9-a5f7-066daeb65c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Lit">
+      <UniqueIdentifier>{2ea78c61-dd09-4e5e-aa87-8a1830b87697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{cf5f0f81-44d9-45bf-b1a2-d315cd7df5c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -25,6 +34,9 @@
     <ClCompile Include="World04.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World05.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -39,46 +51,64 @@
     <ClInclude Include="World04.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="World05.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Build\Assets\Shaders\unlit_color.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Unlit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_color.prog">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Unlit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_color.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Unlit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Unlit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.prog">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Unlit</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag">
+      <Filter>Shaders\Unlit</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
-      <Filter>Shaders</Filter>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog">
+      <Filter>Shaders\Unlit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert">
+      <Filter>Shaders\Unlit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.prog">
+      <Filter>Shaders\Lit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\lit_texture.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Lit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
+      <Filter>Shaders\Lit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
+      <Filter>Shaders\Lit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Lit</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Lit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.frag">
+      <Filter>Shaders\Lit</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\grid.mtrl">
+      <Filter>Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\multi.mtrl">
+      <Filter>Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\quad.mtrl">
+      <Filter>Materials</Filter>
     </None>
   </ItemGroup>
 </Project>

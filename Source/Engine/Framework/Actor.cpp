@@ -5,8 +5,8 @@ namespace nc
 {
 	CLASS_DEFINITION(Actor)
 
-	
-	Actor::Actor(const Actor& other)
+
+		Actor::Actor(const Actor& other)
 	{
 		name = other.name;
 		tag = other.tag;
@@ -70,6 +70,22 @@ namespace nc
 	{
 		component->m_owner = this;
 		components.push_back(std::move(component));
+	}
+
+	void Actor::ProcessGui()
+	{
+
+		ImGui::Text("Name: %s", name.c_str());
+		ImGui::Text("Tag: %s", tag.c_str());
+		ImGui::Checkbox("Active", &active);
+		ImGui::Separator();
+		transform.ProcessGui();
+
+		for (auto& component : components)
+		{
+			ImGui::Separator();
+			component->ProcessGui();
+		}
 	}
 
 	void Actor::Read(const json_t& value)

@@ -9,7 +9,6 @@
 
 namespace nc
 {
-    //this is mine
     bool World07::Initialize()
     {
         m_scene = std::make_unique<Scene>();

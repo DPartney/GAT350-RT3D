@@ -80,6 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -90,7 +91,7 @@
       <AdditionalDependencies>sdl2.lib;sdl2main.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget) </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -113,7 +115,7 @@
       <AdditionalDependencies>sdl2.lib;sdl2main.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget) </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,6 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -132,7 +135,7 @@
       <AdditionalDependencies>sdl2.lib;sdl2main.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget) </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,6 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -155,7 +159,7 @@
       <AdditionalDependencies>sdl2.lib;sdl2main.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget) </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

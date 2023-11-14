@@ -22,12 +22,12 @@ namespace nc
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
-			WARNING_LOG("Could not load assimp file %s" << importer.GetErrorString());
+			WARNING_LOG("Could not load assimp file " << filename << " error string: " << importer.GetErrorString());
 			return false;
 		}
 
 		glm::mat4 mt = glm::translate(translate);
-		glm::mat4 mr = glm::eulerAngleXYZ(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z));
+		glm::mat4 mr = glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
 		glm::mat4 ms = glm::scale(scale);
 
 		glm::mat4 mx = mt * mr * ms;
@@ -37,10 +37,9 @@ namespace nc
 		return true;
 	}
 
-	void Model::Draw()
+	void Model::Draw(GLenum primitive)
 	{
-		m_material->Bind();
-		m_vertexBuffer->Draw(GL_TRIANGLES);
+		m_vertexBuffer->Draw(primitive);
 	}
 
 	void Model::ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform)

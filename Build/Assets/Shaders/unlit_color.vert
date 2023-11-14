@@ -9,9 +9,10 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+
 void main()
 {
 	ocolor = color;
-	mat4 mvp = projection * view * model;
+	mat4 mvp = projection * view * model; 
 	gl_Position = mvp * vec4(position, 1.0);
 }

@@ -8,7 +8,14 @@ namespace nc
 
 	bool ModelComponent::Initialize()
 	{
-		//if (!modelName.empty()) model = GET_RESOURCE(Model, modelName);
+		if (!modelName.empty())
+		{
+			model = GET_RESOURCE(Model, modelName);
+		}
+		if (model && !materialName.empty())
+		{
+			material = GET_RESOURCE(Material, materialName);
+		}
 
 		return true;
 	}
@@ -19,11 +26,26 @@ namespace nc
 
 	void ModelComponent::Draw(Renderer& renderer)
 	{
-		//m_model->Draw(renderer, m_owner->transform);
+		material->Bind();
+		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
+
+		glDepthMask(enableDepth);
+		glCullFace(cullface);
+
+		model->Draw();
 	}
 
 	void ModelComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, modelName);
+		READ_DATA(value, materialName);
+
+		READ_DATA(value, enableDepth);
+
+		std::string cullfaceName;
+		if (READ_NAME_DATA(value, "cullface", cullfaceName))
+		{
+			if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
+		}
 	}
 }

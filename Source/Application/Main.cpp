@@ -3,6 +3,8 @@
 #include "World03.h"
 #include "World04.h"
 #include "World05.h"
+#include "World06.h"
+#include "World07.h"
 #include "Core/Core.h"
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
@@ -15,25 +17,25 @@ int main(int argc, char* argv[])
 
 	//nc::MemoryTracker::Initialize();
 	nc::seedRandom((unsigned int)time(nullptr));
-	bool success = nc::setFilePath("assets");
+	nc::setFilePath("assets");
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::World05>();
+	auto world = make_unique<nc::World07>();
 	world->Initialize();
 
 	// main loop
 	bool quit = false;
 	while (!quit)
 	{
-		// update
+	// update
 		ENGINE.Update();
 		quit = ENGINE.IsQuit();
 
 		world->Update(ENGINE.GetTime().GetDeltaTime());
 
 		// draw
-		world->Draw(*ENGINE.GetSystem<nc::Renderer>());
+		world->Draw(*ENGINE.GetSystem<nc::Renderer>()); //potential problems
 	}
 
 	world->Shutdown();

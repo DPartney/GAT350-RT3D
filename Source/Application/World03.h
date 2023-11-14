@@ -15,14 +15,19 @@ namespace nc
 		void Draw(Renderer& renderer) override;
 
 	private:
-		float m_time;
+		float m_time = 0;
 		float m_speed = 5;
 
 		Transform m_transform;
+		res_t<VertexBuffer> m_vertexBuffer;
 
+		//GLuint m_vao = 0;
 		res_t<Program> m_program;
 		res_t<Texture> m_texture;
 		res_t<Material> m_material;
-		res_t<VertexBuffer> m_vertexBuffer;
+
+
+		glm::vec2 m_offset;
+		glm::vec2 m_tile = { 1.0f, 1.0f };
 	};
 }

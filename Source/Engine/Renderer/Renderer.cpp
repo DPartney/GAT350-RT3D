@@ -6,7 +6,7 @@
 namespace nc
 {
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,
-		GLenum severity, GLsizei length, const GLchar* message, const void* param);
+		GLenum severity, GLsizei length, const GLchar* msg, const void* param);
 
 	bool Renderer::Initialize()
 	{
@@ -31,7 +31,7 @@ namespace nc
 		m_height = height;
 
 		m_window = SDL_CreateWindow(title.c_str(), 100, 100, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-
+		
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
@@ -46,6 +46,7 @@ namespace nc
 
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(DebugCallback, 0);
+		// disable all messages with severity `GL_DEBUG_SEVERITY_NOTIFICATION`
 		glDebugMessageControl(
 			GL_DONT_CARE,
 			GL_DONT_CARE,
@@ -53,10 +54,11 @@ namespace nc
 			0, NULL,
 			GL_FALSE);
 
+
 		glViewport(0, 0, width, height);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+		
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
@@ -65,9 +67,10 @@ namespace nc
 		glFrontFace(GL_CCW);
 	}
 
-	void Renderer::BeginFrame()
+	void Renderer::BeginFrame(const glm::vec3& color)
 	{
-		glClearColor(0, 0, 0, 1);
+		glDepthMask(GL_TRUE);
+		glClearColor(color.r, color.b, color.g, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -101,11 +104,21 @@ namespace nc
 		SDL_RenderDrawPointF(m_renderer, x, y);
 	}
 
+	void Renderer::SetViewPort(int width, int height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
+	void Renderer::ResetViewPort()
+	{
+		glViewport(0, 0, m_width, m_height);
+	}
+
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,
 		GLenum severity, GLsizei length, const GLchar* message, const void* param) {
 
 		std::string sourceString;
-		switch (source)
+		switch (source) 
 		{
 		case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
 			sourceString = "WindowSys";
@@ -130,7 +143,7 @@ namespace nc
 		}
 
 		std::string typeString;
-		switch (type)
+		switch (type) 
 		{
 		case GL_DEBUG_TYPE_ERROR:
 			typeString = "Error";
@@ -163,7 +176,7 @@ namespace nc
 			typeString = "Unknown";
 		}
 
-		switch (severity)
+		switch (severity) 
 		{
 		case GL_DEBUG_SEVERITY_HIGH:
 			ASSERT_LOG(0, "OPENGL Source: " << sourceString << " Type: " << typeString << "(" << id << ") | " << message);

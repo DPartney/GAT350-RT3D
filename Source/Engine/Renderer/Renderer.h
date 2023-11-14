@@ -1,11 +1,13 @@
 #pragma once
 #include "Framework/System.h"
-#include "VertexBuffer.h"
 #include "Font.h"
 #include "Model.h"
 #include "Texture.h"
+#include "Cubemap.h"
 #include "Shader.h"
 #include "Program.h"
+#include "Framebuffer.h"
+#include "VertexBuffer.h"
 #include "Material.h"
 #include "Gui.h"
 
@@ -27,7 +29,7 @@ namespace nc
 		void Update() {}
 
 		void CreateWindow(const std::string& title, int width, int height);
-		void BeginFrame();
+		void BeginFrame(const glm::vec3& color = glm::vec3{ 0 });
 		void EndFrame();
 
 		void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
@@ -35,6 +37,9 @@ namespace nc
 		void DrawLine(float x1, float y1, float x2, float y2);
 		void DrawPoint(int x, int y);
 		void DrawPoint(float x, float y);
+
+		void SetViewPort(int width, int height);
+		void ResetViewPort();
 
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }

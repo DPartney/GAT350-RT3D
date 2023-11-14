@@ -1,6 +1,7 @@
 #pragma once
 #include "PhysicsComponent.h"
 
+
 namespace nc
 {
 	class EnginePhysicsComponent : public PhysicsComponent

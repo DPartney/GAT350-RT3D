@@ -1,8 +1,9 @@
 #include "World02.h"
 #include "Framework/Framework.h"
+#include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
 
-//#define INTERLEAVE
+#define INTERLEAVE //
 #define INDEX
 
 
@@ -10,7 +11,7 @@ namespace nc
 {
     bool World02::Initialize()
     {
-        // shaders
+        //shaders
         const char* vertexShader =
             "#version 430\n"
             "layout (location=0) in vec3 position;"
@@ -20,6 +21,8 @@ namespace nc
             "  ocolor = color;"
             "  gl_Position = vec4(position, 1.0);"
             "}";
+
+
 
         const char* fragmentShader =
             "#version 430\n"
@@ -40,100 +43,99 @@ namespace nc
         GLuint program = glCreateProgram();
         glAttachShader(program, vs);
         glAttachShader(program, fs);
+
         glLinkProgram(program);
         glUseProgram(program);
 
-        #ifdef INTERLEAVE
+        //preprocess directives
+#ifdef INTERLEAVE
 
-        // veretex data
-        float vertexData[] = {
-            -0.8f, -0.8f, 0.0f, 1.0f, 1.0f, 0.0f,
-             0.8f, -0.8f, 0.0f, 0.0f, 1.0f, 1.0f,
-             0.8f,  0.8f, 0.0f, 1.0f, 0.0f, 1.0f,
-            -0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 1.0f
-        };
-
-        GLuint vbo;
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
-
-        glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat));
-
-        // position
-        glEnableVertexAttribArray(0);
-        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-        glVertexAttribBinding(0, 0);
-
-        // color
-        glEnableVertexAttribArray(1);
-        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
-        glVertexAttribBinding(1, 0);
-
-        #elif defined(INDEX)
-        
-        // veretex data
         const float vertexData[] = {
-         -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
-          1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
-          1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
-         -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
+        -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
+        1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+        1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+        -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
         };
+
+
+       GLuint vbo;
+       //position
+       glGenBuffers(1, &vbo);
+       glBindBuffer(GL_ARRAY_BUFFER, vbo);
+       glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData , GL_STATIC_DRAW);
+      
+       glGenVertexArrays(1, &m_vao);
+       glBindVertexArray(m_vao);
+
+       glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat)); //stride is the distance between data chunks, so 6 here
+
+       //position
+       glEnableVertexAttribArray(0); 
+       glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+       glVertexAttribBinding(0, 0);
+
+       //color
+       glEnableVertexAttribArray(1);
+       glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
+       glVertexAttribBinding(1, 0);
+#elif defined(INDEX)
+
+        const float vertexData[] = {
+        -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
+        1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+        1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+        -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
+        };
+
         GLuint indices[] =
         {
             0, 1, 2,
             2, 3, 0
         };
 
+        //vertex buffer obkect
         GLuint vbo;
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
-
         // index buffer object
         GLuint ibo;
         glGenBuffers(1, &ibo);
-        glBindBuffer(GL_ARRAY_BUFFER, ibo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        // vertex array buffers
+        // vertex array object
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
 
-        glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat));
+        glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat)); //stride is the distance between data chunks, so 6 here
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-        // position
+        //position
         glEnableVertexAttribArray(0);
         glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
         glVertexAttribBinding(0, 0);
 
-        // color
+        //color
         glEnableVertexAttribArray(1);
         glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
-        glVertexAttribBinding(1, 0);
+        glVertexAttribBinding(1, 0); #else
 
-
-        #else
-
-        // veretex data
+        // Vertex data
         float positionData[] = {
             -0.8f, -0.8f, 0.0f,
              0.8f, -0.8f, 0.0f,
              0.8f,  0.8f, 0.0f,
-            -0.8f,  0.8f, 0.0f
-        };
+            -0.8f, 0.8f, 0.0f
+    };
 
         float colorData[] =
         {
-            1.0f, 1.0f, 0.0f,
-            0.0f, 1.0f, 1.0f,
             1.0f, 0.0f, 1.0f,
-            1.0f, 1.0f, 1.0f
+            1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 1.0f
         };
 
         GLuint vbo[2];
@@ -144,24 +146,23 @@ namespace nc
         glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
 
+
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
 
-        // position
+        // Position
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(0, vbo[0], 0, 3 * sizeof(GLfloat));
+        glBindVertexBuffer(0, vbo[0], 0, sizeof(GLfloat) * 3);
 
-        // color
+        // Color
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(1, vbo[1], 0, 3 * sizeof(GLfloat));
+        glBindVertexBuffer(1, vbo[1], 0, sizeof(GLfloat) * 3);
 
-        #endif // INTERLEAVE
 
-        return true;
-
-        
+#endif //INTERLEAVE
+       return true;
     }
 
     void World02::Shutdown()
@@ -187,10 +188,8 @@ namespace nc
 #ifdef INDEX
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 #else
-
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 #endif
-
-        glDrawArrays(GL_QUADS, 0, 4);
 
         // post-render
         renderer.EndFrame();

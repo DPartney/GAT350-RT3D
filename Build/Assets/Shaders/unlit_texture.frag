@@ -9,10 +9,11 @@ uniform vec4 color;
 uniform vec2 offset;
 uniform vec2 tiling;
 
-layout(binding = 0) uniform sampler2D tex;
+layout(binding = 0)uniform sampler2D tex;// possible to have multiple for multiple textureSamples
 
 void main()
 {
 	vec4 texcolor = texture(tex, (texcoord * tiling) + offset);
+	//if(texcolor.a <0.8f) discard;
 	ocolor = texcolor * color;
 }
